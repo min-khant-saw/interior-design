@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const Navbar = () => {
     // State variable to track if the menu is open or closed
@@ -11,19 +11,21 @@ const Navbar = () => {
             {/* Navbar */}
             <div className="w-full flex justify-between items-baseline pt-1 px-3 shadow-md sticky top-0 left-0 flex-col bg-stone-100 z-10">
                 <div>
-                    <img
-                        src="/house-tool.png"
-                        alt="logo"
-                        className="w-20 h-20 rounded inline"
-                    />
-                    <span
-                        className="text-lg font-bold"
-                        style={{
-                            fontFamily: "'Raleway', sans-serif",
-                        }}
-                    >
-                        Interior Design
-                    </span>
+                    <Link to="/">
+                        <img
+                            src="/house-tool.png"
+                            alt="logo"
+                            className="w-20 h-20 rounded inline"
+                        />
+                        <span
+                            className="text-lg font-bold"
+                            style={{
+                                fontFamily: "'Raleway', sans-serif",
+                            }}
+                        >
+                            Interior Design
+                        </span>
+                    </Link>
                 </div>
 
                 {/* Hamburger menu icon */}
@@ -88,16 +90,16 @@ const Navbar = () => {
                             Blog
                         </a>
                     </li>
-                    <Link to="/login">
+                    <NavLink to="/login">
                         <li className="text-black text-base font-medium relative transition-colors hover:bg-slate-200 w-full p-2 border-t-4">
                             <span className="mr-14">Login</span>
                         </li>
-                    </Link>
-                    <Link to="/register">
+                    </NavLink>
+                    <NavLink to="/register">
                         <li className="text-black text-base font-medium relative transition-colors hover:bg-slate-200 w-full p-2">
                             <span className="mr-14">Sing Up</span>
                         </li>
-                    </Link>
+                    </NavLink>
                 </ul>
             </div>
         </React.Fragment>

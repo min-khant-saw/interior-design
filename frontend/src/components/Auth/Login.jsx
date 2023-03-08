@@ -1,15 +1,67 @@
-import React, { useState } from "react";
+import React, { useMemo, useReducer, useState } from "react";
+import { redirect } from "react-router-dom";
 import { Email } from "@mui/icons-material";
 import KeyRoundedIcon from "@mui/icons-material/KeyRounded";
 import RemoveRedEyeRoundedIcon from "@mui/icons-material/RemoveRedEyeRounded";
 import VisibilityOffRoundedIcon from "@mui/icons-material/VisibilityOffRounded";
+import axiosClient from "../Api/axioClient";
+
+// Define a reducer function that takes in the current state and an action to perform on it
+const reducer = (login, action) => {
+    switch (action.type) {
+        // If the action type is 'email', return a new 'login' object with updated email field
+        case "email":
+            return { ...login, email: action.email };
+        // If the action type is 'password', return a new 'login' object with updated password field
+        case "password":
+            return { ...login, password: action.password };
+        // If the action type does not match any cases, return the current 'login' object
+        default:
+            return login;
+    }
+};
 
 const Login = () => {
+    // Define initial state for the 'login' object, with empty email and password fields
+    const [login, setLogin] = useReducer(reducer, { email: "", password: "" });
+
     // Set up state for toggling password visibility
     const [checkPass, setCheckPass] = useState(true);
+
+    // This code is using the `useMemo` hook from React to memoize the function and avoid unnecessary re-renders.
+
+    const formData = new FormData(); // Create a new instance of the FormData object.
+
+    useMemo(() => {
+        // Axios client is used to make HTTP requests to the server.
+        // Here we are making a GET request to the `/user` endpoint.
+        axiosClient
+            .get("/user")
+            .then((_) => redirect("/")) // If the request is successful, redirect the user to the home page.
+            .catch((err) => err); // If there's an error, just return the error object.
+    }, [localStorage.getItem("token")]); // This memoized function depends on the value of `localStorage.getItem("token")`. If the token changes, the function will be re-evaluated.
+
+    const singIn = (e) => {
+        e.preventDefault();
+
+        // Add email and password to the FormData object.
+        formData.append("email", login.email);
+        formData.append("password", login.password);
+
+        return axiosClient
+            .post("/login", formData) // Make a POST request to the `/login` endpoint with the FormData object as the payload.
+            .then((_) => redirect("/")) // If the request is successful, redirect the user to the home page.
+            .catch((error) => error); // If there's an error, just return the error object.
+    };
+
     return (
         <div className="w-full my-3">
-            <form action="" method="post" className="w-1/2 mx-auto">
+            <form
+                action=""
+                method="post"
+                className="w-1/2 mx-auto"
+                onSubmit={singIn}
+            >
                 {/* Login header */}
                 <h1 className="text-2xl text-center text-blue-600 dark:text-blue-500 my-2">
                     Login
@@ -41,6 +93,10 @@ const Login = () => {
                         id="email"
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="name@gmail.com"
+                        value={login.email}
+                        onChange={(e) =>
+                            setLogin({ type: "email", email: e.target.value })
+                        }
                         required
                     />
                 </div>
@@ -62,6 +118,13 @@ const Login = () => {
                         id="password"
                         className="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="*****"
+                        value={login.password}
+                        onChange={(e) =>
+                            setLogin({
+                                type: "password",
+                                password: e.target.value,
+                            })
+                        }
                         required
                     />
                     {/* Password visibility toggle button */}

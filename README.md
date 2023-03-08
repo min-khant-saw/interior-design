@@ -6,14 +6,6 @@
 
 The `Navbar` component is a React functional component that renders a responsive navigation bar with a hamburger menu icon that toggles a sidebar menu.
 
-## Usage
-
-To use the `Navbar` component, simply import it into your React project and render it like any other component.
-
-## Props
-
-The `Navbar` component does not accept any props.
-
 ## Example
 
 The following example demonstrates how to use the `Navbar` component:
