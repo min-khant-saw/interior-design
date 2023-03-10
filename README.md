@@ -26,8 +26,6 @@ composer i
 
 php artisan vendor:publish  --provider="Laravel\Sanctum\SanctumServiceProvider"
 
-php artisan migrate
-
 app/Http/Kernel.php
 
 'api' => [
@@ -35,6 +33,17 @@ app/Http/Kernel.php
 	\Illuminate\Routing\Middleware\ThrottleRequests::class.':api',
 	\Illuminate\Routing\Middleware\SubstituteBindings::class,
 ],
+
+config/app.php
+
+'providers' => [
+    // ...
+    Spatie\Permission\PermissionServiceProvider::class,
+];
+
+php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider"
+
+php artisan migrate
 
 cd  interior-design/frontend
 
