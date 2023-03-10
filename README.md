@@ -21,8 +21,6 @@ Develope by - [**Min Khant Saw**](https://www.facebook.com/min.k.saw.4)
 Install project with npm and composer
 
 ```bash
-php artisan vendor:publish  --provider="Laravel\Sanctum\SanctumServiceProvider"
-
 app/Http/Kernel.php
 
 'api' => [
@@ -37,6 +35,8 @@ config/app.php
     // ...
     Spatie\Permission\PermissionServiceProvider::class,
 ];
+
+php artisan vendor:publish  --provider="Laravel\Sanctum\SanctumServiceProvider"
 
 php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider"
 
