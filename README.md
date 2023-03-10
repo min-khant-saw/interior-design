@@ -21,25 +21,6 @@ Develope by - [**Min Khant Saw**](https://www.facebook.com/min.k.saw.4)
 Install project with npm and composer
 
 ```bash
-app/Http/Kernel.php
-
-'api' => [
-	\Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
-	\Illuminate\Routing\Middleware\ThrottleRequests::class.':api',
-	\Illuminate\Routing\Middleware\SubstituteBindings::class,
-],
-
-config/app.php
-
-'providers' => [
-    // ...
-    Spatie\Permission\PermissionServiceProvider::class,
-];
-
-php artisan vendor:publish  --provider="Laravel\Sanctum\SanctumServiceProvider"
-
-php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider"
-
 php artisan migrate
 
 composer i && php artisan serve
@@ -47,7 +28,6 @@ composer i && php artisan serve
 cd  interior-design/frontend
 
 npm i && npm run dev
-
 ```
 
 # React Js
