@@ -21,9 +21,6 @@ Develope by - [**Min Khant Saw**](https://www.facebook.com/min.k.saw.4)
 Install project with npm and composer
 
 ```bash
-
-composer i
-
 php artisan vendor:publish  --provider="Laravel\Sanctum\SanctumServiceProvider"
 
 app/Http/Kernel.php
@@ -44,6 +41,8 @@ config/app.php
 php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider"
 
 php artisan migrate
+
+composer i && php artisan serve
 
 cd  interior-design/frontend
 
