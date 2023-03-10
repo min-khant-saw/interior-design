@@ -13,12 +13,31 @@ const axiosClient = axios.create({
 });
 
 // Add an interceptor to modify the request before it is sent
-axiosClient.interceptors.request.use((config) => {
-    // Get the access token from local storage and add it to the request headers for authorization
-    config.headers.Authorization = "Bearer " + localStorage.getItem("token");
-    // Return the modified configuration object to continue with the request
-    return config;
-});
+axiosClient.interceptors.request.use(
+    (config) => {
+        // Get the access token from local storage and add it to the request headers for authorization
+        config.headers.Authorization =
+            "Bearer " + localStorage.getItem("token");
+        // Return the modified configuration object to continue with the request
+        return config;
+    },
+    (error) => {
+        // Handle errors
+        return Promise.reject(error);
+    }
+);
+
+// Add an interceptor to modify the response before it is sent
+axiosClient.interceptors.response.use(
+    (response) => {
+        // Handle successful responses
+        return response;
+    },
+    (error) => {
+        // Handle errors
+        return Promise.reject(error);
+    }
+);
 
 // Export the axios client instance as the default export for this module
 export default axiosClient;

@@ -51,7 +51,7 @@ const Register = () => {
         // Here we are making a GET request to the `/user` endpoint.
         axiosClient
             .get("/user")
-            .then((_) => redirect("/")) // If the request is successful, redirect the user to the home page.
+            .then((_) => (window.location.href = "/")) // If the request is successful, redirect the user to the home page.
             .catch((err) => err); // If there's an error, just return the error object.
     }, [localStorage.getItem("token")]); // This memoized function depends on the value of `localStorage.getItem("token")`. If the token changes, the function will be re-evaluated.
 
@@ -73,7 +73,10 @@ const Register = () => {
         return (
             axiosClient
                 .post("/register", formData)
-                .then((res) => localStorage.setItem("token", res.data.token))
+                .then((res) => {
+                    localStorage.setItem("token", res.data.token);
+                    window.location.href = "/";
+                })
                 // Catch any errors and set the error state variable
                 .catch((error) => setErr(error.message))
         );

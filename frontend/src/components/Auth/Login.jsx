@@ -37,7 +37,7 @@ const Login = () => {
         // Here we are making a GET request to the `/user` endpoint.
         axiosClient
             .get("/user")
-            .then((_) => redirect("/")) // If the request is successful, redirect the user to the home page.
+            .then((_) => (window.location.href = "/")) // If the request is successful, redirect the user to the home page.
             .catch((err) => err); // If there's an error, just return the error object.
     }, [localStorage.getItem("token")]); // This memoized function depends on the value of `localStorage.getItem("token")`. If the token changes, the function will be re-evaluated.
 
@@ -50,7 +50,10 @@ const Login = () => {
 
         return axiosClient
             .post("/login", formData) // Make a POST request to the `/login` endpoint with the FormData object as the payload.
-            .then((_) => redirect("/")) // If the request is successful, redirect the user to the home page.
+            .then((res) => {
+                localStorage.setItem("token", res.data.token);
+                window.location.href = "/";
+            }) // If the request is successful, redirect the user to the home page.
             .catch((error) => error); // If there's an error, just return the error object.
     };
 
