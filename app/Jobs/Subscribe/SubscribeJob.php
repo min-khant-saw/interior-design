@@ -9,9 +9,10 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 use Mail;
 
-class SubscribeJob implements ShouldQueue, ShouldBeUnique
+class SubscribeJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -39,7 +40,16 @@ class SubscribeJob implements ShouldQueue, ShouldBeUnique
      */
     public function handle(): void
     {
-        // Send a confirmation email to the subscriber using the `Mail` facade and the `SubscribeMail` Mailable class.
-        Mail::to($this->mail)->send(new SubscribeMail());
+        try {
+            // Send a confirmation email to the subscriber using the `Mail` facade and the `SubscribeMail` Mailable class.
+            Mail::to($this->mail)->send(new SubscribeMail());
+        } catch (\Throwable $e) {
+            // Log the error message and stack trace to help diagnose the issue.
+            Log::error(
+                'Failed to send confirmation email to subscriber: ' .
+                    $e->getMessage(),
+                ['exception' => $e]
+            );
+        }
     }
 }

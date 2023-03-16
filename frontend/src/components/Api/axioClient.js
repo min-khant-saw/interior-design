@@ -7,8 +7,7 @@ const axiosClient = axios.create({
     baseURL: `${import.meta.env.VITE_SERVER_API_URL}/api`,
     // Set the default headers for all requests to JSON format
     headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
+        "Content-Type": "multipart/form-data",
     },
 });
 

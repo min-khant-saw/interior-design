@@ -2,7 +2,7 @@ import React from "react";
 
 const Footer = () => {
     return (
-        <div className="w-full bg-gray-800 flex justify-evenly items-center p-1 py-3 mt-6 text-gray-400 max-lg:flex-col gap-3">
+        <div className="w-full bg-gray-800 flex justify-evenly items-center p-1 py-3 text-gray-400 max-lg:flex-col gap-3">
             {/* Copyright statement */}
             <span>© 2023 Interior Design | All Rights Reserved</span>
             <div className="text-gray-400">

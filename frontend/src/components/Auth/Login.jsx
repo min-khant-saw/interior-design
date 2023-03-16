@@ -1,5 +1,4 @@
-import React, { useMemo, useReducer, useState } from "react";
-import { redirect } from "react-router-dom";
+import React, { useReducer, useState } from "react";
 import { Email } from "@mui/icons-material";
 import KeyRoundedIcon from "@mui/icons-material/KeyRounded";
 import RemoveRedEyeRoundedIcon from "@mui/icons-material/RemoveRedEyeRounded";
@@ -28,18 +27,7 @@ const Login = () => {
     // Set up state for toggling password visibility
     const [checkPass, setCheckPass] = useState(true);
 
-    // This code is using the `useMemo` hook from React to memoize the function and avoid unnecessary re-renders.
-
     const formData = new FormData(); // Create a new instance of the FormData object.
-
-    useMemo(() => {
-        // Axios client is used to make HTTP requests to the server.
-        // Here we are making a GET request to the `/user` endpoint.
-        axiosClient
-            .get("/user")
-            .then((_) => (window.location.href = "/")) // If the request is successful, redirect the user to the home page.
-            .catch((err) => err); // If there's an error, just return the error object.
-    }, [localStorage.getItem("token")]); // This memoized function depends on the value of `localStorage.getItem("token")`. If the token changes, the function will be re-evaluated.
 
     const singIn = (e) => {
         e.preventDefault();

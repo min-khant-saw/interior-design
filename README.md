@@ -23,6 +23,8 @@ Install project with npm and composer
 ```bash
 php artisan migrate
 
+php artisan queue:work
+
 composer i && php artisan serve
 
 cd  interior-design/frontend
@@ -44,7 +46,7 @@ The following example demonstrates how to use the `Navbar` component:
 
 `<Navbar />`
 
-When rendered, this will display a navigation bar with a hamburger menu icon that toggles a sidebar menu. The sidebar menu includes links to Home, Shop, About Us, Contact us, Services, Blog, Login, and Sign Up pages.
+When rendered, this will display a navigation bar with a hamburger menu icon that toggles a sidebar menu. The sidebar menu includes links to Projects, Shop, About Us, Contact us, Services, Blog, Login, and Sign Up pages.
 
 ## Sing in
 
@@ -111,6 +113,74 @@ This component is a functional component that displays a subscription form and a
 The component returns a `div` element containing conditional rendering based on the `error` state. If the error is equal to `"Request failed with status code 401"`, it displays a message asking the user to sign up and a button to redirect the user to the registration page.
 
 Below that, there is a `form` element containing an input field to capture the email address and a button to submit the email subscription. When the user submits the form, the `subscribe` function is called. Finally, there is an image preview displayed on the right side of the screen, which is hidden on smaller screens.
+
+## Code Description
+
+This is a React functional component named `Main`. It renders a subscription form and an image preview based on the state of the Redux store.
+
+## Component Structure
+
+-   The `Main` component consists of two main parts:
+
+    1.  A conditional block that renders a message and a "Sign Up" button if the `validUser` property in the Redux store equals `"Request failed with status code 401"`.
+    2.  A `Subscribe` component and an image preview.
+
+-   The `Subscribe` component receives custom font sizes through the `fz_1` and `fz_2` props.
+-   The image preview is only shown on smaller screens (`max-lg:hidden`) and is positioned to the right of the `Subscribe` component using `ml-auto` and `translate-x-60`.
+
+## Header Component
+
+This component represents the header section of the website. It is responsible for displaying an image along with text overlay on top of it. The text overlay consists of a title, description, and a "See more" button. The image is loaded lazily using the `LazyLoadImage` component from the `react-lazy-load-image-component` library.
+
+### Props
+
+-   `data`: An object that contains information about the header section, such as the image URL, title, and description.
+
+## Mix Component
+
+The Mix component displays a section with a title "in the mix" and a grid of designs fetched from a data source. Each design has an image, title, and short description.
+
+### Props
+
+-   `data`: an object that contains an array of pages, each of which contains an array of designs. The design array has properties like `image`, `title`, and `description`.
+
+### Rendering
+
+The Mix component will render a section with the following structure:
+
+-   A title "in the mix"
+-   A grid of designs fetched from the `data` source, with each design having:
+    -   An image
+    -   A title (clickable)
+    -   A short description
+
+The grid is responsive, with 3 columns on larger screens, 2 columns on medium screens, and 1 column on small screens.
+
+## TopDesign Component
+
+This component displays the most recent top design.
+
+### Props
+
+-   `data`: object - object containing data to be rendered
+
+### Returns
+
+-   `JSX.Element`
+
+## Project Component
+
+This component displays an image with a text overlay and a "See more" button. It uses the `useInfiniteQuery` hook from the `react-query` library to fetch data from an API endpoint and display it.
+
+The component starts by defining the `project` function which makes a GET request to the API endpoint for the data. This function is passed to `useInfiniteQuery` as the `queryFn` parameter, which tells `react-query` how to fetch the data. `useInfiniteQuery` returns an object containing information about the state of the query, including the `data`, `error`, `fetchNextPage`, `hasNextPage`, `isFetching`, `isFetchingNextPage`, and `status` properties.
+
+The `ImageOverlay` component also defines a `containerRef` using the `useRef` hook, which is used to observe when the user scrolls to the bottom of the page and trigger a new data fetch.
+
+In the `useEffect` hook, the `data` object is checked to see if it contains a `next_page_url` property. If it does, an `IntersectionObserver` is created to observe the `containerRef` and trigger a new data fetch when the user scrolls to the bottom of the page.
+
+The `ImageOverlay` component then renders the container for the image and text overlay, as well as the "See more" button. If the query is still loading, it displays a loading spinner, and if there's an error, it displays the error message.
+
+Overall, the `ImageOverlay` component is responsible for fetching and displaying data from an API endpoint using `react-query`.
 
 # Laravel
 
@@ -245,3 +315,12 @@ The method contains the following steps:
 
 1.  Retrieve the `$mail` property to get the email address of the subscriber.
 2.  Send a confirmation email to the subscriber using the `Mail::to()` method, passing in the email address and a new instance of the `SubscribeMail` Mailable class as arguments.
+
+## PHP Room Design Controller
+
+This PHP class is a Laravel controller that handles requests related to creating and retrieving room designs. It provides two methods:
+
+-   `addNewDesign()`: This method validates a request to add a new room design and saves the uploaded image to a Dropbox disk. It then creates a new `RoomDesign` model with the uploaded image filename and returns it in the response.
+-   `getDesign()`: This method retrieves all room designs from the database, including their associated user information. It then maps the image URL for each design and returns them in the response.
+
+The `RoomDesignController` class also has a constructor, which is currently empty.

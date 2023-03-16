@@ -1,4 +1,4 @@
-import React, { useReducer, useState, useMemo } from "react";
+import React, { useReducer, useState } from "react";
 import { redirect } from "react-router-dom";
 import axiosClient from "../Api/axioClient";
 
@@ -43,17 +43,6 @@ const Register = () => {
 
     // Declare a state variable to hold any errors from form submission
     const [err, setErr] = useState("");
-
-    // This code is using the `useMemo` hook from React to memoize the function and avoid unnecessary re-renders.
-
-    useMemo(() => {
-        // Axios client is used to make HTTP requests to the server.
-        // Here we are making a GET request to the `/user` endpoint.
-        axiosClient
-            .get("/user")
-            .then((_) => (window.location.href = "/")) // If the request is successful, redirect the user to the home page.
-            .catch((err) => err); // If there's an error, just return the error object.
-    }, [localStorage.getItem("token")]); // This memoized function depends on the value of `localStorage.getItem("token")`. If the token changes, the function will be re-evaluated.
 
     // Create a new instance of FormData to store form data
     const formData = new FormData();

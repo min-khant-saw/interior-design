@@ -36,6 +36,10 @@ class RegisterController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+        // Assign the 'user' role to the user
+
+        $user->assignRole('user');
+
         // return a JSON response with a success message, the new user data, and a token
 
         return response()->json(

@@ -35,4 +35,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function room_design()
+    {
+        return $this->hasOne(RoomDesign::class, 'user_id');
+    }
 }
