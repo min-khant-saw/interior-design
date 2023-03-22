@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 
@@ -12,8 +13,12 @@ const Mix = ({ data }) => {
             <div className="grid grid-cols-3 gap-x-3 max-md:grid-cols-2 max-sm:grid-cols-1">
                 {/* Mapping through each design */}
                 {data.pages.map((designs, i) =>
-                    designs.data.data.data.map((design, i) => (
-                        <div className="mb-7" key={i}>
+                    designs.data.data.data.slice(0, 9).map((design, i) => (
+                        <Link
+                            to={`/design/room/${design.id}`}
+                            className="mb-7"
+                            key={i}
+                        >
                             {/* The design image */}
                             <LazyLoadImage
                                 effect="blur"
@@ -33,7 +38,7 @@ const Mix = ({ data }) => {
                                     {design.description.slice(0, 80)}
                                 </span>
                             </div>
-                        </div>
+                        </Link>
                     ))
                 )}
             </div>

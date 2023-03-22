@@ -1,6 +1,7 @@
 import React from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
+import { Link } from "react-router-dom";
 
 // Component for displaying the recent top design section
 const TopDesign = ({ data }) => {
@@ -11,7 +12,7 @@ const TopDesign = ({ data }) => {
             </h1>
             <div className="flex justify-between gap-9 flex-row max-lg:flex-col">
                 {/* Iterate over first 5 pages of data */}
-                {data.pages.slice(0, 5).map((designs, i) => {
+                {data.pages.map((designs, i) => {
                     // Do not render anything for the first page
                     if (i === 0) {
                         return null;
@@ -19,9 +20,10 @@ const TopDesign = ({ data }) => {
                     // Filter new designs and map over them to display
                     return designs.data.data.data
                         .filter((design) => design.type === "new_design")
+                        .slice(0, 5)
                         .map((design, i) => {
                             return (
-                                <a href="" key={i}>
+                                <Link to={`/design/room/${design.id}`} key={i}>
                                     <div className="flex flex-col gap-y-4 w-full">
                                         <div className="w-full h-56 overflow-hidden">
                                             {/* Lazy load design image */}
@@ -47,7 +49,7 @@ const TopDesign = ({ data }) => {
                                             </p>
                                         </div>
                                     </div>
-                                </a>
+                                </Link>
                             );
                         });
                 })}

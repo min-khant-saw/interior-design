@@ -76,7 +76,7 @@ const Navbar = () => {
                 </span>
             </div>
             {/* Navbar */}
-            <div className="w-full flex justify-between items-baseline pt-1 px-3 shadow-md sticky top-0 left-0 flex-col bg-stone-100 z-10">
+            <div className="w-full flex justify-between items-baseline pt-1 px-3 shadow-md sticky top-0 left-0 flex-col bg-stone-100 z-20">
                 <div>
                     <Link to="/">
                         <img
@@ -108,7 +108,7 @@ const Navbar = () => {
             </div>
             {/* Sidebar */}
             <div
-                className="block ml-auto bg-slate-100 w-96 transition-all ease-in-out duration-300 h-screen overflow-hidden fixed top-0 max-md:w-3/4 py-4 shadow-lg z-20"
+                className="block ml-auto bg-slate-100 w-96 transition-all ease-in-out duration-300 h-screen overflow-auto fixed top-0 max-md:w-3/4 py-4 shadow-lg z-20 scrollbar-none"
                 style={
                     !isOpen
                         ? { right: "0px" } // If menu is open, hide the sidebar by moving it out of view
@@ -142,9 +142,28 @@ const Navbar = () => {
                                 </li>
                             </NavLink>
                         </>
-                    ) : selector.isAdmin[0] === "admin" ? (
-                        <Admin setOption={setOption} option={option} />
-                    ) : null}
+                    ) : (
+                        <>
+                            <li
+                                className="text-black text-base font-medium relative transition-colors hover:bg-slate-200 w-full p-2 border-t-4"
+                                onClick={() => {
+                                    axiosClient.post("/logout");
+                                    localStorage.clear();
+                                    return (window.location.href = "/");
+                                }}
+                            >
+                                <span className="mr-14">Logout</span>
+                            </li>
+                            {selector.isAdmin[0] === "admin" ? (
+                                <>
+                                    <Admin
+                                        setOption={setOption}
+                                        option={option}
+                                    />
+                                </>
+                            ) : null}
+                        </>
+                    )}
                 </ul>
             </div>
         </React.Fragment>

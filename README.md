@@ -182,6 +182,26 @@ The `ImageOverlay` component then renders the container for the image and text o
 
 Overall, the `ImageOverlay` component is responsible for fetching and displaying data from an API endpoint using `react-query`.
 
+## Infinite Scrolling in React using React-Query
+
+Infinite scrolling is a technique where new content is loaded automatically as the user scrolls down the page. It's commonly used in web applications to improve the user experience and reduce the need for pagination.
+
+In this tutorial, we'll learn how to implement infinite scrolling in a React application using the React-Query library. React-Query is a powerful library that provides a simple and elegant way to fetch, cache and update data in React applications.
+
+## Prerequisites
+
+To follow along with this tutorial, you should have a basic understanding of React and React-Query.
+
+## Room Component
+
+This component displays details of a room fetched from an API using the `useQuery` hook from the `react-query` library. The room ID is obtained from the URL using the `useParams` hook from `react-router-dom`. The component also uses the `LazyLoadImage` component from the `react-lazy-load-image-component` library to lazy load images.
+
+The `useSelector` hook from `react-redux` is used to access the Redux store state. A loading spinner component is displayed while data is being fetched from the API, and an error message is displayed if there is an error.
+
+If the user is authorized, the user's name and email are displayed along with the room details. If not authorized, placeholder values are displayed instead.
+
+The component is exported as the default.
+
 # Laravel
 
 ## Controller
@@ -316,11 +336,26 @@ The method contains the following steps:
 1.  Retrieve the `$mail` property to get the email address of the subscriber.
 2.  Send a confirmation email to the subscriber using the `Mail::to()` method, passing in the email address and a new instance of the `SubscribeMail` Mailable class as arguments.
 
-## PHP Room Design Controller
+## RoomDesignController
 
-This PHP class is a Laravel controller that handles requests related to creating and retrieving room designs. It provides two methods:
+This controller handles the logic for managing room designs, which are stored in the `RoomDesign` model. The controller includes methods for adding a new design, retrieving all designs, retrieving designs by category, and retrieving a single design by ID.
 
--   `addNewDesign()`: This method validates a request to add a new room design and saves the uploaded image to a Dropbox disk. It then creates a new `RoomDesign` model with the uploaded image filename and returns it in the response.
--   `getDesign()`: This method retrieves all room designs from the database, including their associated user information. It then maps the image URL for each design and returns them in the response.
+### `__construct()`
 
-The `RoomDesignController` class also has a constructor, which is currently empty.
+The constructor method for the controller can be used for any initialization tasks.
+
+### `addNewDesign(Request $request)`
+
+This method adds a new design to the `RoomDesign` model. It first validates the request data, ensuring that all required fields are present and that the uploaded image file has a valid file type. It then saves the uploaded image to the Dropbox disk and creates a new `RoomDesign` model with the uploaded image filename. The method returns the newly created `RoomDesign` model in the response.
+
+### `getDesign(Request $request)`
+
+This method retrieves all designs from the `RoomDesign` model. It first gets the number of items per page from the request and then retrieves all `RoomDesign` models, ordered by ID in descending order, with their associated user models. It then maps each `RoomDesign` model to include the URL of its associated image and returns the `RoomDesign` models with their associated image URLs in the response.
+
+### `getMainDesign(Request $request)`
+
+This method retrieves all designs from the `RoomDesign` model that belong to a specified category. It first gets the number of items per page and the category from the request and then retrieves all `RoomDesign` models that belong to the specified category, ordered by ID in descending order, with their associated user models. It then maps each `RoomDesign` model to include the URL of its associated image and returns the `RoomDesign` models with their associated image URLs in the response.
+
+### `getRoom($id)`
+
+This method retrieves a single `RoomDesign` model by ID, with its associated user model. It first finds the `RoomDesign` model with the specified ID and then gets the URL of its associated image. It replaces the image filename with its URL in the `RoomDesign` model and returns the `RoomDesign` model with its associated image URL in the response.

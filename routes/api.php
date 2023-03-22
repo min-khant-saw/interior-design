@@ -57,4 +57,6 @@ Route::middleware("auth:sanctum")->group(function () {
 
 Route::withoutMiddleware('throttle')->group(function () {
     Route::get('/rooms', [RoomDesignController::class, 'getDesign']);
+    Route::get('/design', [RoomDesignController::class, 'getMainDesign']);
+    Route::get('room/{id}', [RoomDesignController::class, 'getRoom']);
 });

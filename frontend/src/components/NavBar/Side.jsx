@@ -1,11 +1,12 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import Design from "./Design";
 
 const Side = ({ option }) => {
     return (
         <div>
             <div
-                className={`flex justify-center mx-auto text-end flex-col gap-3 w-full overflow-hidden ${
+                className={`flex justify-center mx-auto text-end flex-col gap-3 w-full overflow-hidden relative ${
                     option ? "max-md:h-0" : "max-md:h-auto"
                 }`}
             >
@@ -14,11 +15,9 @@ const Side = ({ option }) => {
                         <span className="mr-14">Projects</span>
                     </li>
                 </NavLink>
-                <li className="text-black text-base font-medium relative transition-colors hover:bg-slate-200 w-full p-2">
-                    <a href="" className="mr-14">
-                        Designs
-                    </a>
-                </li>
+
+                <Design />
+
                 <li className="text-black text-base font-medium relative transition-colors hover:bg-slate-200 w-full p-2">
                     <a href="" className="mr-14">
                         About Us

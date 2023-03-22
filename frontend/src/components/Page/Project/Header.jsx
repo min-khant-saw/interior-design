@@ -2,6 +2,7 @@ import React from "react";
 import KeyboardDoubleArrowRightRoundedIcon from "@mui/icons-material/KeyboardDoubleArrowRightRounded";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
+import { Link } from "react-router-dom";
 
 const Header = ({ data }) => {
     return (
@@ -28,12 +29,15 @@ const Header = ({ data }) => {
                         {data.description.slice(0, 120) + "..."}
                     </span>
                     {/* The "See more" button */}
-                    <button className="w-max bg-orange-600 hover:bg-orange-500 hover:text-white transition-all py-2 px-8 text-black text-sm max-md:text-xs max-md:px-4 max-md:py-1.5 flex justify-between items-center hover:gap-x-2">
+                    <Link
+                        to={`/design/room/${data.id}`}
+                        className="w-max bg-orange-600 hover:bg-orange-500 hover:text-white transition-all py-2 px-8 text-black text-sm max-md:text-xs max-md:px-4 max-md:py-1.5 flex justify-between items-center hover:gap-x-2"
+                    >
                         <div>See more</div>
                         <div>
                             <KeyboardDoubleArrowRightRoundedIcon />
                         </div>
-                    </button>
+                    </Link>
                 </div>
             </div>
         </div>

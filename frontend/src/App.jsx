@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Route, Routes } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import axiosClient from "./components/Api/axioClient";
+import { useSelector } from "react-redux";
 import Register from "./components/Auth/Register";
 import Login from "./components/Auth/Login";
 import Navbar from "./components/NavBar/Navbar";
@@ -11,6 +10,8 @@ import Error from "./components/Page/Error";
 import Project from "./components/Page/Project";
 import Dashboard from "./components/Page/Admin/Dashboard/Dashboard";
 import CreateDesign from "./components/Page/Admin/Dashboard/Design/CreateDesign";
+import RoomMain from "./components/Page/Room/Main";
+import Room from "./components/Page/Room/Room";
 
 const App = () => {
     const selector = useSelector((state) => state);
@@ -28,6 +29,10 @@ const App = () => {
                         </>
                     )}
                     <Route path="/projects" element={<Project />} />
+                    <Route path="/design">
+                        <Route path=":name" element={<RoomMain />} />
+                        <Route path="room/:id" element={<Room />} />
+                    </Route>
                     {selector.isAdmin[0] === "admin" && (
                         <>
                             <Route path="/admin">

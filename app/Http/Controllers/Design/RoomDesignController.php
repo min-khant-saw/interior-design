@@ -78,4 +78,46 @@ class RoomDesignController extends Controller
         // Return the RoomDesign models with their associated image URLs in the response
         return response()->json(['data' => $room_design]);
     }
+    public function getMainDesign(Request $request)
+    {
+        // Get the number of items per page from the request
+        $perPage = $request->get('perPage');
+
+        // Get the design category from the request
+        $design = $request->get('design');
+
+        // Retrieve all RoomDesign models that belong to the specified category,
+        // with their associated user model, ordered by id in descending order
+        $room_design = RoomDesign::with('user')
+            ->where('category', $design)
+            ->orderByDesc('id')
+            ->paginate($perPage);
+
+        // Map each RoomDesign model to include the URL of its associated image
+        $room_design->map(function ($room_design) {
+            $url = Storage::disk('dropbox')->url(
+                'design/' . $room_design->image
+            );
+            $room_design->image = $url;
+            return $room_design;
+        });
+
+        // Return the RoomDesign models with their associated image URLs in the response
+        return response()->json($room_design);
+    }
+
+    public function getRoom($id)
+    {
+        // Find the RoomDesign model with the specified ID, with its associated user model
+        $room = RoomDesign::with('user')->findOrFail($id);
+
+        // Get the URL of the associated image
+        $url = Storage::disk('dropbox')->url('design/' . $room->image);
+
+        // Replace the image filename with its URL in the RoomDesign model
+        $room->image = $url;
+
+        // Return the RoomDesign model with its associated image URL in the response
+        return response()->json($room);
+    }
 }

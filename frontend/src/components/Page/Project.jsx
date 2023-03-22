@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import Subscribe from "../subscribe/Subscribe";
 import axiosClient from "../Api/axioClient";
 import { useInfiniteQuery } from "react-query";
@@ -12,8 +12,7 @@ const project = ({ pageParam = 1 }) => {
 };
 
 const Project = () => {
-    const containerRef = useRef(null);
-
+    const [next_page_url, set_next_page_url] = useState(null);
     // useInfiniteQuery to fetch and paginate data
     const {
         data,
@@ -27,47 +26,34 @@ const Project = () => {
         getNextPageParam: (lastPage, pages) => pages.length + 1,
     });
 
-    let next_page_url = null;
-
-    // IntersectionObserver to fetch more data when the end of the container is reached
+    // window scroll to fetch more data when the end of the container is reached
     useEffect(() => {
-        data?.pages.map((d, i) => (next_page_url = d.data.data.next_page_url));
+        data?.pages.map((d, i) => set_next_page_url(d.data.data.next_page_url));
         if (next_page_url === null) return;
+        const onScroll = async (event) => {
+            const { scrollHeight, scrollTop, clientHeight } =
+                event.target.scrollingElement;
 
-        const handleIntersect = (entries, observer) => {
-            entries.forEach((entry) => {
-                if (
-                    entry.isIntersecting &&
-                    hasNextPage &&
-                    !isFetching &&
-                    !isFetchingNextPage
-                ) {
-                    fetchNextPage();
-                }
-            });
-        };
-
-        const options = {
-            rootMargin: "300px",
-        };
-
-        const observer = new IntersectionObserver(handleIntersect, options);
-
-        if (containerRef.current) {
-            observer.observe(containerRef.current);
-        }
-
-        return () => {
-            if (containerRef.current) {
-                observer.unobserve(containerRef.current);
+            if (
+                !isFetching &&
+                !isFetchingNextPage &&
+                hasNextPage &&
+                scrollHeight - scrollTop <= clientHeight * 100
+            ) {
+                return await fetchNextPage();
             }
         };
+
+        document.addEventListener("scroll", onScroll);
+        return () => {
+            document.removeEventListener("scroll", onScroll);
+        };
     }, [
-        containerRef,
-        hasNextPage,
-        isFetching,
         isFetchingNextPage,
+        isFetching,
         fetchNextPage,
+        hasNextPage,
+        next_page_url,
     ]);
 
     // Render loading spinner when data is still loading
@@ -80,10 +66,7 @@ const Project = () => {
 
     return (
         // Container for the image and text overlay
-        <div
-            className="w-full flex flex-col justify-between gap-y-14"
-            ref={containerRef}
-        >
+        <div className="w-full flex flex-col justify-between gap-y-14">
             {status === "success" ? (
                 <React.Fragment>
                     <Header data={data?.pages[0]?.data.data.data[0]} />

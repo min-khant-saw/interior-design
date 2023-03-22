@@ -14,7 +14,13 @@ module.exports = {
             grayscale: {
                 50: "50%",
             },
+            width: {
+                700: "43.75rem",
+            },
         },
     },
-    plugins: [require("flowbite/plugin")],
+    plugins: [
+        require("flowbite/plugin"),
+        require("tailwind-scrollbar")({ nocompatible: true }),
+    ],
 };
