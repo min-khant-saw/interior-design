@@ -3,7 +3,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import Subscribe from "../subscribe/Subscribe";
+import Subscribe from "../Subscribe/Subscribe";
 
 const Main = () => {
     // Define state variables for error and email

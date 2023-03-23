@@ -4,6 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { store } from "./components/Store/store";
+
 import App from "./App";
 import "./index.css";
 

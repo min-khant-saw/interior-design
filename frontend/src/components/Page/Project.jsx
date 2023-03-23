@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Subscribe from "../subscribe/Subscribe";
+import Subscribe from "../Subscribe/Subscribe";
 import axiosClient from "../Api/axioClient";
 import { useInfiniteQuery } from "react-query";
 import Header from "./Project/Header";
