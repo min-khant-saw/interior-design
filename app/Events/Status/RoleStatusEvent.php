@@ -17,10 +17,10 @@ class RoleStatusEvent implements ShouldBroadcast
     /**
      * Create a new event instance.
      */
-    public $role;
-    public function __construct()
+    public $counter;
+    public function __construct($counter)
     {
-        //
+        $this->counter = $counter;
     }
 
     /**
@@ -30,6 +30,6 @@ class RoleStatusEvent implements ShouldBroadcast
      */
     public function broadcastOn(): array
     {
-        return [new PrivateChannel('role.' . $this->role)];
+        return [new PrivateChannel('role.' . $this->counter)];
     }
 }

@@ -17,10 +17,10 @@ class UserStatusEvent implements ShouldBroadcast
     /**
      * Create a new event instance.
      */
-    public $user;
-    public function __construct()
+    public $counter;
+    public function __construct($counter)
     {
-        //
+        $this->counter = $counter;
     }
 
     /**
@@ -30,6 +30,6 @@ class UserStatusEvent implements ShouldBroadcast
      */
     public function broadcastOn(): array
     {
-        return [new PrivateChannel('user.' . $this->user)];
+        return [new PrivateChannel('user.' . $this->counter)];
     }
 }

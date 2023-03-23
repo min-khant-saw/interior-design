@@ -17,10 +17,10 @@ class DesignStatusEvent implements ShouldBroadcast
     /**
      * Create a new event instance.
      */
-    public $design;
-    public function __construct()
+    public $counter;
+    public function __construct($counter)
     {
-        //
+        $this->counter = $counter;
     }
 
     /**
@@ -30,6 +30,6 @@ class DesignStatusEvent implements ShouldBroadcast
      */
     public function broadcastOn(): array
     {
-        return [new PrivateChannel('design.' . $this->design)];
+        return [new PrivateChannel('design.' . $this->counter)];
     }
 }
