@@ -25,21 +25,6 @@ const Side = ({ option }) => {
                         </span>
                     </li>
                 </NavLink>
-                <li className="text-black text-base font-medium relative transition-colors hover:bg-slate-200 w-full p-2">
-                    <a href="" className="mr-14">
-                        Contact us
-                    </a>
-                </li>
-                <li className="text-black text-base font-medium relative transition-colors hover:bg-slate-200 w-full p-2">
-                    <a href="" className="mr-14">
-                        Services
-                    </a>
-                </li>
-                <li className="text-black text-base font-medium relative transition-colors hover:bg-slate-200 w-full p-2">
-                    <a href="" className="mr-14">
-                        Blog
-                    </a>
-                </li>
             </div>
         </div>
     );

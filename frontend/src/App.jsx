@@ -12,6 +12,7 @@ import Dashboard from "./components/Page/Admin/Dashboard/Dashboard";
 import CreateDesign from "./components/Page/Admin/Dashboard/Design/CreateDesign";
 import RoomMain from "./components/Page/Room/Main";
 import Room from "./components/Page/Room/Room";
+import About from "./components/Page/About";
 
 const App = () => {
     const selector = useSelector((state) => state);
@@ -45,6 +46,7 @@ const App = () => {
                         <Route path=":name" element={<RoomMain />} />
                         <Route path="room/:id" element={<Room />} />
                     </Route>
+                    <Route path="/about-us" element={<About />} />
                     {/* If the user is an admin, the Dashboard and CreateDesign
                     components are rendered */}
                     {selector.isAdmin[0] === "admin" && (
