@@ -3,7 +3,6 @@ import { useQuery } from "react-query";
 import axiosClient from "../../../../Api/axioClient";
 
 const Card = ({ icon, url, text }) => {
-    const [status, setStatus] = useState(0);
     const { data, isLoading, isError } = useQuery(url, () =>
         axiosClient.get(url).then((res) => res.data)
     );
@@ -21,11 +20,7 @@ const Card = ({ icon, url, text }) => {
                         Error fetching data.
                     </div>
                 )}
-                {data && (
-                    <div className="opacity-60 text-md">
-                        {status === 0 ? data : status}
-                    </div>
-                )}
+                {data && <div className="opacity-60 text-md">{data}</div>}
             </div>
         </div>
     );

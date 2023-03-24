@@ -8,6 +8,7 @@ import Echo from "laravel-echo";
 import Pusher from "pusher-js";
 import App from "./App";
 import "./index.css";
+import axiosClient from "./components/Api/axioClient";
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -31,11 +32,15 @@ window.Echo = new Echo({
     disableStats: true,
     host: window.location.hostname + 6001,
     cluster: "mt1",
+    auth: {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+    },
     authorizer: (channel, options) => {
-        console.log(channel.name);
         return {
             authorize: (socketId, callback) => {
-                server
+                axiosClient
                     .post("/broadcasting/auth", {
                         socket_id: socketId,
                         channel_name: channel.name,

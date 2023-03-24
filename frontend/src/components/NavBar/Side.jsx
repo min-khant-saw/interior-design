@@ -18,11 +18,13 @@ const Side = ({ option }) => {
 
                 <Design />
 
-                <li className="text-black text-base font-medium relative transition-colors hover:bg-slate-200 w-full p-2">
-                    <a href="" className="mr-14">
-                        About Us
-                    </a>
-                </li>
+                <NavLink to="/about-us">
+                    <li className="text-black text-base font-medium relative transition-colors hover:bg-slate-200 w-full p-2">
+                        <span href="" className="mr-14">
+                            About Us
+                        </span>
+                    </li>
+                </NavLink>
                 <li className="text-black text-base font-medium relative transition-colors hover:bg-slate-200 w-full p-2">
                     <a href="" className="mr-14">
                         Contact us

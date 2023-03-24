@@ -8,19 +8,32 @@ import Loading from "../../Loading/Loading";
 import { useSelector } from "react-redux";
 
 const Room = () => {
+    // This code block is using the React Router hook "useParams" to extract the id parameter from the URL.
+    // The extracted id is then used to fetch data from the server using the "useQuery" hook from the React Query library.
+
     const { id } = useParams();
+
+    // Using the "useSelector" hook from the Redux library to select the entire Redux store
     const selector = useSelector((state) => state);
+
+    // Using the "useQuery" hook from the React Query library to fetch data from the server
     const { data, isLoading, isError, error } = useQuery({
-        queryKey: ["room", id],
+        queryKey: ["room", id], // The queryKey is an array that identifies the query and is used for cache management
         queryFn: async () => {
+            // Fetching data from the server using axiosClient and the extracted id
             const data = await (await axiosClient.get(`/room/${id}`)).data;
+            // Throwing an error if the response data is empty
             if (!Object.values(data).length) {
                 throw new Error("No Data");
             }
             return data;
         },
     });
+
+    // Showing a loading spinner if the data is still loading
     if (isLoading) return <Loading />;
+
+    // Showing an error message if there was an error fetching the data
     if (isError) return <>{error.message}</>;
 
     return (
@@ -40,8 +53,8 @@ const Room = () => {
                         {selector.validUser ===
                         "Request failed with status code 401" ? (
                             <>
-                                <li>.........</li>
-                                <li>.........</li>
+                                <li>****</li>
+                                <li>***</li>
                             </>
                         ) : (
                             <>

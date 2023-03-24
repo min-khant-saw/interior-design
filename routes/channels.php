@@ -17,18 +17,18 @@ Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });
 
-Broadcast::channel('user.{id}', function ($user, $id) {
+Broadcast::channel('user.{status}', function ($user, $status) {
     return true;
 });
 
-Broadcast::channel('design.{id}', function ($design, $id) {
+Broadcast::channel('design.{status}', function ($design, $status) {
     return true;
 });
 
-Broadcast::channel('role.{id}', function ($permission, $id) {
+Broadcast::channel('role.{status}', function ($permission, $status) {
     return true;
 });
 
-Broadcast::channel('permission.{id}', function ($permission, $id) {
+Broadcast::channel('permission.{status}', function ($permission, $status) {
     return true;
 });

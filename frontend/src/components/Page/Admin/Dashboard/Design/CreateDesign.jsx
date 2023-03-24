@@ -4,27 +4,36 @@ import DesignType from "./DesignType";
 import DesignImage from "./DesignImage";
 import axiosClient from "../../../../Api/axioClient";
 
+// This is a reducer function that updates state based on the action dispatched.
+// It takes the current state and an action object as arguments and returns a new state based on the action type and payload.
+
 const reducer = (state, action) => {
     switch (action.type) {
         case "title":
+            // Return a new state object with updated "title" value
             return { ...state, title: action.payload.title };
         case "description":
+            // Return a new state object with updated "description" value
             return { ...state, description: action.payload.description };
         case "design_role":
+            // Return a new state object with updated "design_role" value
             return { ...state, design_role: action.payload.design_role };
         case "design_type":
+            // Return a new state object with updated "design_type" value
             return { ...state, design_type: action.payload.design_type };
         case "image":
+            // Return a new state object with updated "image" value
             return { ...state, image: action.payload.image };
         default:
+            // Return the current state object if action type is not recognized
             return state;
     }
 };
 
-// need upload loading and successful upload message
-// aleady create redux-toolkit with loading reducer
-
 const CreateDesign = () => {
+    // This code block is using the React hook "useReducer" to manage state and update form inputs.
+    // The "reducer" function passed to useReducer is responsible for updating the state based on the action dispatched.
+
     const [state, form] = useReducer(reducer, {
         title: "",
         description: "",
@@ -32,9 +41,15 @@ const CreateDesign = () => {
         design_type: "",
         image: "",
     });
+
+    // Creating a new instance of FormData to store data from form inputs
     const formData = new FormData();
+
+    // This function handles form submission by preventing the default behavior, validating form inputs and sending data to the server
     const createDesign = (e) => {
         e.preventDefault();
+
+        // Form input validation
         if (
             state.title.length < 0 ||
             state.description.length < 0 ||
@@ -44,15 +59,19 @@ const CreateDesign = () => {
         ) {
             return state;
         }
+
+        // Appending form data to the formData instance
         formData.append("title", state.title);
         formData.append("description", state.description);
         formData.append("category", state.design_role);
         formData.append("type", state.design_type);
         formData.append("image", state.image);
+
+        // Sending form data to the server using axios client
         return axiosClient
             .post("/admin/create_design", formData)
-            .then((res) => console.log(res))
-            .catch((err) => console.log(err));
+            .then((_) => _)
+            .catch((err) => err);
     };
     return (
         <div className="mb-7">

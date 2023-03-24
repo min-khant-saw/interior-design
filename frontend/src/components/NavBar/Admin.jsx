@@ -39,14 +39,6 @@ const Admin = ({ option, setOption }) => {
                             Create Design
                         </NavLink>
                     </li>
-                    <li>
-                        <a
-                            href="#"
-                            className="flex items-center w-full p-2 text-base font-normal text-gray-900 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 transition-colors duration-100"
-                        >
-                            Invoice
-                        </a>
-                    </li>
                 </ul>
             </li>
         </div>

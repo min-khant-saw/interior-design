@@ -16,11 +16,21 @@ import Room from "./components/Page/Room/Room";
 const App = () => {
     const selector = useSelector((state) => state);
     return (
+        // The layout is wrapped in a parent div that takes up the full height and width of the screen
+
         <div className="flex flex-col justify-between min-h-screen w-full relative">
+            {/* The "overflow-clip" class is used to prevent the Navbar from
+            overlapping with other components */}
             <div className="overflow-clip relative h-full">
+                {/* The Navbar component is always rendered at the top of the
+                screen */}
                 <Navbar />
+                {/* React Router is used to render different components based on
+                the current route */}
                 <Routes>
                     <Route path="/" element={<Main />} />
+                    {/* If the user is not authenticated, the Register and Login
+                    components are rendered */}
                     {selector.validUser ===
                         "Request failed with status code 401" && (
                         <>
@@ -29,10 +39,14 @@ const App = () => {
                         </>
                     )}
                     <Route path="/projects" element={<Project />} />
+                    {/* The Room component has nested routes that render
+                    different components based on the current route */}
                     <Route path="/design">
                         <Route path=":name" element={<RoomMain />} />
                         <Route path="room/:id" element={<Room />} />
                     </Route>
+                    {/* If the user is an admin, the Dashboard and CreateDesign
+                    components are rendered */}
                     {selector.isAdmin[0] === "admin" && (
                         <>
                             <Route path="/admin">
@@ -50,6 +64,8 @@ const App = () => {
                     <Route path="*" element={<Error />} />
                 </Routes>
             </div>
+            {/* The Footer component is always rendered at the bottom of the
+            screen */}
             <Footer />
         </div>
     );

@@ -4,8 +4,6 @@ import DesignServicesRoundedIcon from "@mui/icons-material/DesignServicesRounded
 import ManageAccountsRoundedIcon from "@mui/icons-material/ManageAccountsRounded";
 import SecurityRoundedIcon from "@mui/icons-material/SecurityRounded";
 import Card from "./Card/Card";
-import RoomChart from "./Chart/RoomChart";
-
 const Dashboard = () => {
     return (
         <div className="bg-slate-200/60 min-h-screen">
@@ -54,9 +52,6 @@ const Dashboard = () => {
                         text="Permissions"
                     />
                 </div>
-            </div>
-            <div className="w-1/2 mx-auto flex justify-center max-md:w-full">
-                <RoomChart />
             </div>
         </div>
     );
