@@ -5,7 +5,7 @@ const About = () => {
         <div className="p-4">
             <ul className="space-y-4 text-gray-500 list-disc list-inside dark:text-gray-400">
                 <li>
-                    Introduction:
+                    <span className="text-base font-bold">Introduction:</span>
                     <ol className="pl-5 mt-2 space-y-1 list-decimal list-inside">
                         <li>
                             Min Khant Saw is a 19-year-old web developer from
@@ -15,7 +15,9 @@ const About = () => {
                     </ol>
                 </li>
                 <li>
-                    Programming Skills:
+                    <span className="text-base font-bold">
+                        Programming Skills:
+                    </span>
                     <ol className="pl-5 mt-2 space-y-1 list-decimal list-inside">
                         Min Khant Saw has become proficient in several
                         programming languages, including:
@@ -44,7 +46,9 @@ const About = () => {
                     </ol>
                 </li>
                 <li>
-                    Web Development Expertise:
+                    <span className="text-base font-bold">
+                        Web Development Expertise:
+                    </span>
                     <ol className="pl-5 mt-2 space-y-1 list-decimal list-inside">
                         <li>
                             As a web developer, Min Khant Saw uses his skills to
@@ -59,8 +63,10 @@ const About = () => {
                     </ol>
                 </li>
                 <li>
-                    <ol className="pl-5 mt-2 space-y-1 list-decimal list-inside">
+                    <span className="text-base font-bold">
                         Collaboration and Teamwork:
+                    </span>
+                    <ol className="pl-5 mt-2 space-y-1 list-decimal list-inside">
                         <li>
                             Min Khant Saw has experience collaborating with
                             other developers on projects and using Git to manage
@@ -71,8 +77,10 @@ const About = () => {
                     </ol>
                 </li>
                 <li>
-                    <ol className="pl-5 mt-2 space-y-1 list-decimal list-inside">
+                    <span className="text-base font-bold">
                         Passion and Dedication:
+                    </span>
+                    <ol className="pl-5 mt-2 space-y-1 list-decimal list-inside">
                         <li>
                             Min Khant Saw is a hardworking, dedicated, and
                             detail-oriented developer who is passionate about
@@ -84,8 +92,8 @@ const About = () => {
                     </ol>
                 </li>
                 <li>
+                    <span className="text-base font-bold">Conclusion:</span>
                     <ol className="pl-5 mt-2 space-y-1 list-decimal list-inside">
-                        Conclusion:
                         <li>
                             In conclusion, Min Khant Saw is a talented and
                             skilled web developer with an impressive range of
