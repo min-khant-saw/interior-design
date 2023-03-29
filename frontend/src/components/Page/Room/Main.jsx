@@ -7,6 +7,8 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import axiosClient from "../../Api/axioClient";
 import Loading from "../../Loading/Loading";
+import { useDispatch } from "react-redux";
+import { setLoading } from "../../Store/Loading/loading";
 
 // Axios function for getting data
 const project = ({ pageParam = 1, room }) => {
@@ -20,6 +22,7 @@ const Main = () => {
     // State variables
     const [next_page_url, set_next_page_url] = useState(null);
     const { name } = useParams();
+    const dispatch = useDispatch();
     // React-query hook for infinite scrolling
     const {
         data,
@@ -40,6 +43,12 @@ const Main = () => {
 
     // useEffect hook for infinite scrolling
     useEffect(() => {
+        if (isLoading) {
+            dispatch(setLoading(30));
+        } else {
+            dispatch(setLoading(100));
+        }
+
         // Set next_page_url state variable
         data?.pages.map((d, i) => set_next_page_url(d.data.next_page_url));
         if (next_page_url === null) return;
@@ -75,7 +84,7 @@ const Main = () => {
     ]);
 
     // Return statements for different scenarios
-    if (isLoading) return <Loading />;
+    if (isLoading) return "";
     if (isError) return <>{error.message}</>;
 
     // JSX for rendering the data

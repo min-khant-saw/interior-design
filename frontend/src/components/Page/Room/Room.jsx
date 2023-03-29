@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import axiosClient from "../../Api/axioClient";
 import Loading from "../../Loading/Loading";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setLoading } from "../../Store/Loading/loading";
 
 const Room = () => {
     // This code block is using the React Router hook "useParams" to extract the id parameter from the URL.
@@ -15,6 +16,7 @@ const Room = () => {
 
     // Using the "useSelector" hook from the Redux library to select the entire Redux store
     const selector = useSelector((state) => state);
+    const dispatch = useDispatch();
 
     // Using the "useQuery" hook from the React Query library to fetch data from the server
     const { data, isLoading, isError, error } = useQuery({
@@ -30,8 +32,16 @@ const Room = () => {
         },
     });
 
+    useEffect(() => {
+        if (isLoading) {
+            dispatch(setLoading(30));
+        } else {
+            dispatch(setLoading(100));
+        }
+    }, [isLoading]);
+
     // Showing a loading spinner if the data is still loading
-    if (isLoading) return <Loading />;
+    if (isLoading) return "";
 
     // Showing an error message if there was an error fetching the data
     if (isError) return <>{error.message}</>;

@@ -12,7 +12,7 @@ const Mix = ({ data }) => {
             {/* The grid of design images and descriptions */}
             <div className="grid grid-cols-3 gap-x-3 max-md:grid-cols-2 max-sm:grid-cols-1">
                 {/* Mapping through each design */}
-                {data.pages.map((designs, i) =>
+                {data?.pages.map((designs, i) =>
                     designs.data.data.data.slice(0, 9).map((design, i) => (
                         <Link
                             to={`/design/room/${design.id}`}

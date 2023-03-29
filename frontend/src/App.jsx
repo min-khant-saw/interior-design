@@ -1,6 +1,7 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import { useSelector } from "react-redux";
+import LoadingBar from "react-top-loading-bar";
 import Register from "./components/Auth/Register";
 import Login from "./components/Auth/Login";
 import Navbar from "./components/NavBar/Navbar";
@@ -23,6 +24,12 @@ const App = () => {
             {/* The "overflow-clip" class is used to prevent the Navbar from
             overlapping with other components */}
             <div className="overflow-clip relative h-full">
+                <LoadingBar
+                    color="#65a30d"
+                    progress={selector.loading.loading}
+                    height={3}
+                    shadow={true}
+                />
                 {/* The Navbar component is always rendered at the top of the
                 screen */}
                 <Navbar />

@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Subscribe from "../Subscribe/Subscribe";
 import axiosClient from "../Api/axioClient";
+import { useDispatch } from "react-redux";
 import { useInfiniteQuery } from "react-query";
+import { setLoading } from "../Store/Loading/loading";
 import Header from "./Project/Header";
 import Loading from "../Loading/Loading";
 import TopDesign from "./Project/TopDesign";
@@ -13,6 +15,7 @@ const project = ({ pageParam = 1 }) => {
 
 const Project = () => {
     const [next_page_url, set_next_page_url] = useState(null);
+    const dispatch = useDispatch();
     // useInfiniteQuery to fetch and paginate data
     const {
         data,
@@ -28,6 +31,11 @@ const Project = () => {
 
     // window scroll to fetch more data when the end of the container is reached
     useEffect(() => {
+        if (status === "loading") {
+            dispatch(setLoading(30));
+        } else {
+            dispatch(setLoading(100));
+        }
         data?.pages.map((d, i) => set_next_page_url(d.data.data.next_page_url));
         if (next_page_url === null) return;
         const onScroll = async (event) => {
@@ -57,10 +65,7 @@ const Project = () => {
     ]);
 
     // Render loading spinner when data is still loading
-    if (status === "loading") {
-        return <Loading />;
-    }
-
+    if (status === "loading") return "";
     // Render error message when there is an error fetching data
     if (status === "error") return <>{error.message}</>;
 

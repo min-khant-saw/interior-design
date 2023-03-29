@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import isAdmin from "./AdminStore/admin";
+import loading from "./Loading/loading";
 import subscribe from "./SubscribeStore/subscribe";
 import validUser from "./User/user";
 
@@ -9,5 +10,6 @@ export const store = configureStore({
         subscribe: subscribe.reducer,
         isAdmin: isAdmin.reducer,
         validUser: validUser.reducer,
+        loading: loading.reducer,
     },
 });
